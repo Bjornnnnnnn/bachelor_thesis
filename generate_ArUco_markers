@@ -1,0 +1,34 @@
+import cv2
+import os
+
+output_folder = r"C:\Users\bjorn\Downloads\ArUco_motion_tracking\markers_png"
+
+os.makedirs(output_folder, exist_ok=True)
+
+dictionary = cv2.aruco.getPredefinedDictionary(
+    cv2.aruco.DICT_4X4_50
+)
+
+marker_size_pixels = 1000
+
+marker_ids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+for marker_id in marker_ids:
+
+    marker = cv2.aruco.generateImageMarker(
+        dictionary,
+        marker_id,
+        marker_size_pixels
+    )
+
+    filename = os.path.join(
+        output_folder,
+        f"marker_{marker_id}.png"
+    )
+
+    cv2.imwrite(
+        filename,
+        marker
+    )
+
+    print("Saved:", filename)
